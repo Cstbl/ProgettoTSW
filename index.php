@@ -1,24 +1,27 @@
 <?php
+$login=false;
 if(!empty($_POST['username']))
-    $username = $_POST['username'];
+    $username_utente = $_POST['username'];
 
 if(!empty($_POST['password']))
-    $password = $_POST['password'];
+    $password_utente = $_POST['password'];
     
-if(!empty($username) & !empty($password)){
+if(!empty($username_utente) & !empty($password_utente)){
+    require_once "connection.php";
     $query = "SELECT * FROM utente WHERE username = $1";
     pg_prepare($db,"Controlla_account", $query);
-    $res = pg_execute($db,"Controlla_account", array($username));
+    $res = pg_execute($db,"Controlla_account", array($username_utente));
     if(!$res){
         $login=false;
     }else{
-        $row = pg_fetch_assoc($res);
-        $login = password_verify($password, $row["passwd"]);
-        if($login){
-            if($row["tipologia"]==1 | $row["tipologia"]==2 | $row["tipologia"]==3)
-                $livello_abbonamento=1;
-            else
-                $livello_abbonamento=0;
+        if($row = pg_fetch_assoc($res)){
+            $login = password_verify($password_utente, $row["passwd"]);
+            if($login){
+                if($row["tipologia"]==1 | $row["tipologia"]==2 | $row["tipologia"]==3)
+                    $livello_abbonamento=1;
+                else
+                    $livello_abbonamento=0;
+            }
         }
     }
 }else{
@@ -27,7 +30,7 @@ if(!empty($username) & !empty($password)){
 
 if($login){
     session_start();
-    $_SESSION['username']=$username;
+    $_SESSION['username']=$username_utente;
     $_SESSION['livello_abbonamento'] = $livello_abbonamento;
 }
 
@@ -71,22 +74,28 @@ if($login){
                 
                     <div class="utente">
                         <?php 
-                           echo "<button onclick=\"Login()\" class=\"dropbtn\"><img src=\"Immagini/account.png\" id=\"omino\">Login</button>";
-                           echo "<div id=\"tendina\" class=\"content\">
-                                <form name=\"login\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\" >
+                           if(!$login){?>
+                                 <button onclick="Login()" class="dropbtn"><img src="Immagini/account.png" id="omino">Login</button>
+                                 <div id=tendina class="content">
+                                <form name="login" method="POST" action= <?=$_SERVER['PHP_SELF']?>>
                                     <p>
-                                        <label for=\"username\">
-                                            Username: <input type=\"text\" name=\"username\" id=\"username\">
+                                        <label for="username">
+                                            Username: <input type="text" name="username" id="username">
                                         </label>
                                     </p>
                                     <p>
-                                    <label for=\"password\">
-                                        Password: <input type=\"password\" name=\"password\" id=\"password\">
+                                    <label for="password">
+                                        Password: <input type="password" name="password" id="password">
                                     </label>
                                     </p>
-                                    <input type=submit name=\"login\">
+                                    <input type=submit name="login">
                                 </form>
-                            </div>";
+                            </div>
+                        <?php
+                           }else{?>
+                            <button class="dropbtn"><img src="Immagini/account.png" id="omino"><a  href="Utente.php"><?=$username_utente ?></a></button>
+                        <?php
+                           }
                         ?>
                     </div>  
                                
@@ -146,9 +155,6 @@ if($login){
             for($i=0;$i<20;$i++)  
                 echo "<br>";
 
-                echo "username = $username, password = $password";
-                echo $_SESSION;
-            
 
         
         
