@@ -27,25 +27,30 @@
 		$nascita = "";
     if(isset($_POST['abbonamenti'])){
 		$tipologia = $_POST['abbonamenti'];
-        echo "LOL";}
+  }
 	else{
 		$tipologia = "";
     }
     if(!empty($username) && !empty($email) && !empty($passwd)){
-        echo ("dentro IF");
     if($passwd==$repassword){
-        echo ("dentro IF2");
         if(username_exist($username) or email_exist($email)){
-            echo "<p> Username già esistente. Riprova</p>";
+            echo "<p> Utente già esistente. Riprova</p>";
+            $flag_visualizzazione_sticky = true;
         }else{
           if(insert_utente($username,$email,$passwd,$nascita,$tipologia)){
             echo "<p> Utente $username registrato con successo</p>";
+            $flag_visualizzazione_sticky=false;
           } else{
             echo "<p> Problemi nella registrazione dell'utente</p>";
+            $flag_visualizzazione_sticky = true;
           }
         }
+    }else{
+        $flag_visualizzazione_sticky = true;
     }
-  }
+  }else
+  $flag_visualizzazione_sticky = true;
+if($flag_visualizzazione_sticky){
 ?>
 
 <p>
@@ -75,9 +80,7 @@
     <p>
       <label for="nascita">Data di nascita
 			<input type="date" id="nascita" name="nascita" value="<?php echo $nascita?>"
-       min="1922-01-01" max=
-                            "<?php $timestamp = strtotime("-18 year");
-                            echo date('Y-m-d', $timestamp);?>">
+       min="1922-01-01" max= "<?php $timestamp = strtotime("-18 year"); echo date('Y-m-d', $timestamp);?>">
 		</label>
     </p>
     
@@ -222,6 +225,9 @@
 
 
 <?php
+}else{
+  echo "<a href=\"http://localhost/progettoTSW\">Torna all'Homepage</a>";
+}
   function username_exist($username){
     require "connection.php";
     $find_sql="SELECT username FROM utente where username=$1";
@@ -240,6 +246,7 @@
   }
   function email_exist($email){
     require "connection.php";
+    echo "";
     $find_sql="SELECT email FROM utente where email=$1";
     $prep=pg_prepare($db,"find_email",$find_sql);
     $ret=pg_execute($db,"find_email",array($email));
@@ -257,10 +264,11 @@
 
   function insert_utente($username,$email,$passwd,$nascita,$tipologia){
     require "connection.php";
-    $insert_sql="INSERT INTO utente (username,email,passwd,nascita,tipologia) values($1,$2,$3,$4,$5)";
+   ($tipologia == 1) ? ($data_fine =strtotime(" + 1 month")) :  (($tipologia == 2) ? ($data_fine =strtotime(" + 6 month")) : ($data_fine =strtotime(" + 1 year")));
+    $insert_sql="INSERT INTO utente (username,email,passwd,nascita,tipologia,data_fine) values($1,$2,$3,$4,$5,$6)";
     $hash=password_hash($passwd,PASSWORD_DEFAULT);
     $prep=pg_prepare($db,'insert',$insert_sql);
-    $ret=pg_execute($db,'insert',array($username,$email,$hash,$nascita,$tipologia));
+    $ret=pg_execute($db,'insert',array($username,$email,$hash,$nascita,empty($tipologia)? '0' : $tipologia,date('Y-m-d', $data_fine)));
     if(!$ret){
       echo "ERRORE QUERY: " . pg_last_error($db);
       return false; 
