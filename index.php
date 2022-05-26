@@ -1,6 +1,7 @@
 <?php
 session_start();
 $login = false;
+$password_errata=false;
 if(!empty($_POST['username']))
     $username_utente = $_POST['username'];
     
@@ -11,7 +12,6 @@ if(!empty($_SESSION['username'])){
         $login=true;
     }
 }
-
 if(!empty($_POST['password']))
     $password_utente = $_POST['password'];
     
@@ -22,21 +22,27 @@ if(!$login & !empty($username_utente) & !empty($password_utente)){
     $res = pg_execute($db,"Controlla_account", array($username_utente));
     if(!$res){
         $login=false;
+        $password_errata=true;
     }else{
         if($row = pg_fetch_assoc($res)){
             $login = password_verify($password_utente, $row["passwd"]);
             if($login){
-                if($row["tipologia"]==1 | $row["tipologia"]==2 | $row["tipologia"]==3)
+                if($row["tipologia"]== 1 | $row["tipologia"]== 2 | $row["tipologia"]== 3 )
                     $tipologia_abbonamento= $row["tipologia"];
                 else
                     $tipologia_abbonamento="-1";
+                $password_errata=false;
+            }else{
+                $password_errata=true;
             }
+        }else{
+            $password_errata=true;
         }
     }
 }elseif(!empty($username_utente) & !empty($password_utente)){
     $login=false;
+    $password_errata=false;
 }
-
 if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
     $_SESSION['username']=$username_utente;
     $_SESSION['tipologia_abbonamento'] = $tipologia_abbonamento;
@@ -85,18 +91,21 @@ if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
                            if(!$login){?>
                                  <button onclick="Login()" class="dropbtn"><img src="Immagini/account.png" id="omino">Login</button>
                                  <div id=tendina class="content">
-                                <form name="login" method="POST" action= <?=$_SERVER['PHP_SELF']?>>
+                                <form name="login" method="POST" id="login_form" action= <?=$_SERVER['PHP_SELF']?>>
                                     <p>
                                         <label for="username">
-                                            Username: <input type="text" name="username" id="username">
+                                            Username: <input type="text" name="username" id="username" <?php (!empty($username_utente) & $password_errata)?print"style=\"border: 1px solid red\"":""?>>
                                         </label>
                                     </p>
                                     <p>
                                     <label for="password">
-                                        Password: <input type="password" name="password" id="password">
+                                        Password: <input type="password" name="password" id="password" <?php (!empty($password_utente) & $password_errata)?print"style=\"border: 1px solid red\"":""?>>
                                     </label>
                                     </p>
-                                    <input type=submit name="login">
+                                    <p>
+                                    <input id="login" type=submit name="login">
+                                     Oppure<a href="Registrazione.php">Registrati</a>
+                                    </p>
                                 </form>
                             </div>
                         <?php
@@ -167,9 +176,6 @@ if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
             for($i=0;$i<20;$i++)  
                 echo "<br>";
 
-
-        
-        
         
         
         

@@ -25,6 +25,9 @@ body{
     display: flex;
     flex-direction: column;
 }
+#login_form{
+    text-align: center;
+}
 .title{
     text-align: start;
     background-image: url('Sfondo/sfondo.png');
