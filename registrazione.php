@@ -131,23 +131,24 @@ if($flag_visualizzazione_sticky){
         document.forms.registrazione.addEventListener('submit',function(e){
         e.preventDefault();
         var vuoto=true;
-        if(registrazione.username.value==""){
-            registrazione.username.style.border = "1px solid red";
-            vuoto=false;
+        if(!registrazione.username.value=="" & registrazione.username.value.length<30){
+          registrazione.username.style.border = "1px solid #ccc";
+
         }else{
-                registrazione.username.style.border = "1px solid #ccc";
+              registrazione.username.style.border = "1px solid red";
+              vuoto=false;
             }
         if(registrazione.email.value==""){
             registrazione.email.style.border = "1px solid red";
             vuoto=false;
         }else{
                 registrazione.email.style.border = "1px solid #ccc";
-                if(!registrazione.email.value.match(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/g)){
+                if(!registrazione.email.value.match(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/g) & registrazione.email.value.length<30){
                     registrazione.email.style.border = "1px solid red";
                     vuoto=false;
                  }
             }
-        if(registrazione.password.value!=registrazione.repassword.value | registrazione.password.value=="" |registrazione.password.value.length< 7 ){
+        if(registrazione.password.value!=registrazione.repassword.value | registrazione.password.value=="" |registrazione.password.value.length< 7 | registrazione.password.value.length >255 ){
             registrazione.password.style.border = "1px solid red";
             registrazione.repassword.style.border = "1px solid red";
             vuoto=false;
@@ -155,7 +156,7 @@ if($flag_visualizzazione_sticky){
                 registrazione.repassword.style.border = "1px solid #ccc";
                 registrazione.password.style.border = "1px solid #ccc";
             }
-        if(registrazione.nascita.value==""){
+        if(registrazione.nascita.value=="" | !registrazione.nascita.value.match(/\d{4]\-\d{2}\-\d{2}/g)){
             registrazione.nascita.style.border = "1px solid red";
             vuoto=false;
         }else{

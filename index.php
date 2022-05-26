@@ -1,12 +1,21 @@
 <?php
-$login=false;
+session_start();
+$login = false;
 if(!empty($_POST['username']))
     $username_utente = $_POST['username'];
+if(!empty($_SESSION['username'])){
+    if(!empty($_SESSION['tipologia_abbonamento'])){
+        $username_utente = $_SESSION['username'];
+        $tipologia_abbonamento = $_SESSION['tipologia_abbonamento'];
+        $tipologia_abbonamento = $_SESSION['tipologia_abbonamento'];
+        $login=true;
+    }
+}
 
 if(!empty($_POST['password']))
     $password_utente = $_POST['password'];
     
-if(!empty($username_utente) & !empty($password_utente)){
+if(!$login & !empty($username_utente) & !empty($password_utente)){
     require_once "connection.php";
     $query = "SELECT * FROM utente WHERE username = $1";
     pg_prepare($db,"Controlla_account", $query);
@@ -18,20 +27,19 @@ if(!empty($username_utente) & !empty($password_utente)){
             $login = password_verify($password_utente, $row["passwd"]);
             if($login){
                 if($row["tipologia"]==1 | $row["tipologia"]==2 | $row["tipologia"]==3)
-                    $livello_abbonamento=1;
+                    $tipologia_abbonamento= $row["tipologia"];
                 else
-                    $livello_abbonamento=0;
+                    $tipologia_abbonamento="-1";
             }
         }
     }
-}else{
+}elseif(!empty($username_utente) & !empty($password_utente)){
     $login=false;
 }
 
-if($login){
-    session_start();
+if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
     $_SESSION['username']=$username_utente;
-    $_SESSION['livello_abbonamento'] = $livello_abbonamento;
+    $_SESSION['tipologia_abbonamento'] = $tipologia_abbonamento;
 }
 
 ?>
@@ -93,7 +101,7 @@ if($login){
                             </div>
                         <?php
                            }else{?>
-                            <button class="dropbtn"><img src="Immagini/account.png" id="omino"><a  href="Utente.php"><?=$username_utente ?></a></button>
+                            <a  href="Utente.php"><button class="dropbtn"><img src="Immagini/account.png" id="omino"><p class="username"><?=$username_utente?></p><p class="abbonamento"><?php ($tipologia_abbonamento==1)?(print("1 mese")):(($tipologia_abbonamento==2)? print("6 mesi"):(($tipologia_abbonamento == 3)? print("1 anno"):print("Nessun abbonamento attivato"))); ?></p></button></a>
                         <?php
                            }
                         ?>
@@ -136,6 +144,7 @@ if($login){
             function Login() {
                 document.getElementById("utente").classList.toggle("show");
             }
+
     
             window.onclick = function(event) {
               if (!event.target.matches('.dropbtn')) {
@@ -148,6 +157,9 @@ if($login){
                   }
                 }
               }
+            }
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
             }
         </script>
         <?php  
