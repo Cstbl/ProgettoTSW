@@ -3,7 +3,7 @@ $host_database = 'localhost';
 $port_database = '5432';
 $db = 'TSW';
 $username_database = 'www';
-$password_database ='ciao';
+$password_database ='tsw2022';
 
 $connection_string = "host=$host_database port=$port_database dbname=$db user=$username_database password=$password_database";
 

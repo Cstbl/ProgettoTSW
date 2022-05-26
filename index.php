@@ -2,51 +2,51 @@
 session_start();
 $login = false;
 $password_errata=false;
-if(!empty($_POST['username']))
-    $username_utente = $_POST['username'];
-    
+
+if(!empty($_POST['logout'])){
+    session_destroy();
+    session_start();
+}
 if(!empty($_SESSION['username'])){
     if(!empty($_SESSION['tipologia_abbonamento'])){
         $username_utente = $_SESSION['username'];
         $tipologia_abbonamento = $_SESSION['tipologia_abbonamento'];
         $login=true;
     }
-}
-if(!empty($_POST['password']))
-    $password_utente = $_POST['password'];
-    
-if(!$login & !empty($username_utente) & !empty($password_utente)){
-    require_once "connection.php";
-    $query = "SELECT * FROM utente WHERE username = $1";
-    pg_prepare($db,"Controlla_account", $query);
-    $res = pg_execute($db,"Controlla_account", array($username_utente));
-    if(!$res){
-        $login=false;
-        $password_errata=true;
-    }else{
-        if($row = pg_fetch_assoc($res)){
-            $login = password_verify($password_utente, $row["passwd"]);
-            if($login){
-                if($row["tipologia"]== 1 | $row["tipologia"]== 2 | $row["tipologia"]== 3 )
-                    $tipologia_abbonamento= $row["tipologia"];
-                else
-                    $tipologia_abbonamento="-1";
-                $password_errata=false;
+}else{
+    if(!empty($_POST['username']))
+        $username_utente = $_POST['username'];
+    if(!empty($_POST['password']))
+        $password_utente = $_POST['password'];
+    if(!empty($username_utente) & !empty($password_utente)){
+        require_once "connection.php";
+        $query = "SELECT * FROM utente WHERE username = $1";
+        pg_prepare($db,"Controlla_account", $query);
+        $res = pg_execute($db,"Controlla_account", array($username_utente));
+        if(!$res){
+            $login=false;
+            $password_errata=true;
+        }else{
+            if($row = pg_fetch_assoc($res)){
+                $login = password_verify($password_utente, $row["passwd"]);
+                if($login){
+                    if($row["tipologia"]== 1 | $row["tipologia"]== 2 | $row["tipologia"]== 3 )
+                        $tipologia_abbonamento= $row["tipologia"];
+                    else
+                        $tipologia_abbonamento="-1";
+                    $_SESSION['username']=$username_utente;
+                    $_SESSION['tipologia_abbonamento'] = $tipologia_abbonamento;
+                    $password_errata=false;
+                }else{
+                    $password_errata=true;
+                }
             }else{
                 $password_errata=true;
             }
-        }else{
-            $password_errata=true;
         }
     }
-}elseif(!empty($username_utente) & !empty($password_utente)){
-    $login=false;
-    $password_errata=false;
 }
-if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
-    $_SESSION['username']=$username_utente;
-    $_SESSION['tipologia_abbonamento'] = $tipologia_abbonamento;
-}
+
 
 ?>
 
@@ -104,7 +104,7 @@ if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
                                     </p>
                                     <p>
                                     <input id="login" type=submit name="login">
-                                     Oppure<a href="Registrazione.php" id="registrati">Registrati</a>
+                                     Oppure<a href="Registrazione.php">Registrati</a>
                                     </p>
                                 </form>
                             </div>
@@ -131,13 +131,44 @@ if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
                 <h2 id="film">Film</h2>
             </div>  
             <div class="elenco">
-                <input type="image" src="Immagini/avengers.jpg" class="primo">
-                <input type="image" src="Immagini/avengers.jpg">
-                <input type="image" src="Immagini/avengers.jpg">
-                <input type="image" src="Immagini/avengers.jpg">
-                <input type="image" src="Immagini/avengers.jpg">
-                <input type="image" src="Immagini/avengers.jpg">
-                <input type="image" src="Immagini/avengers.jpg" class="ultimo">
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form> 
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form>
+            <form action="PaginaFilm.php" method="POST">
+                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+                <input type="hidden" value="01" name="film">
+            </form>  
+                
+                
             </div>
             <div class="serie">
                 <h2 id="serie">Serie Tv</h2>
@@ -153,8 +184,6 @@ if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
             function Login() {
                 document.getElementById("utente").classList.toggle("show");
             }
-
-    
             window.onclick = function(event) {
               if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("content");

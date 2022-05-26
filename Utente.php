@@ -1,6 +1,4 @@
 <?php
-
-
     session_start();
     $login=true;
     if(!empty($_SESSION['username'])){ //dovremmo considerare il caso in cui un mongoloide inserisca un utente con username pari a 0
@@ -51,9 +49,15 @@
        if($login){
         ?>
         <div>
-            <h1>
+            <div>
+                <h1>
                 Ciao, <?= $username_utente?>
-            </h1>
+                </h1>
+                <form action="index.php" method="POST">
+                    <button name="logout" value="logout">Logout</button>
+            </form>
+            </div>
+            
             <div id="abbonamento_personale">
                 <?php if($tipologia_abbonamento>0){
                 ?>

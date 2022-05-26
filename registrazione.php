@@ -5,6 +5,10 @@
 </head>
 <body>
 <?php
+session_start();
+if(!empty($_SESSION))
+  session_destroy();
+
 	if(isset($_POST['username']))
 		$username = $_POST['username'];
 	else
@@ -58,10 +62,10 @@ if($flag_visualizzazione_sticky){
 	</p>
 	<form method="post" name="registrazione" action=<?php echo $_SERVER['PHP_SELF']?> >
 		<p>
-      <label for="username">Username
-			<input type="text" name="username" id="username" value="<?php echo $username?>"/>
+      <label for="username">Username:
 		</label>
     </p>
+    <p><input type="text" name="username" id="username" value="<?php echo $username?>"/></p>
 		<p>
 		<label for="email">Mail
 			<input type="text" name="email" id="email" value="<?php echo $email?>">
