@@ -7,6 +7,7 @@ if(!empty($_POST['logout'])){
     session_destroy();
     session_start();
 }
+    
 if(!empty($_SESSION['username'])){
     if(!empty($_SESSION['tipologia_abbonamento'])){
         $username_utente = $_SESSION['username'];
@@ -131,59 +132,94 @@ if(!empty($_SESSION['username'])){
                 <h2 id="film">Film</h2>
             </div>  
             <div class="elenco">
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/Avengers.jpg" alt="Avengers" class="primo">
                 <input type="hidden" value="01" name="film">
             </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
-            </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
-            </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
-            </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
-            </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
-            </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
-            </form> 
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/StarWars.jpg" alt="StarWars"  >
+                <input type="hidden" value="02" name="film">
             </form>
-            <form action="PaginaFilm.php" method="POST">
-                <input type="image" src="Immagini/avengers.jpg" alt="Avengers" value="01" class="primo">
-                <input type="hidden" value="01" name="film">
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/LoHobbit.jpg" alt="LoHobbit"  >
+                <input type="hidden" value="03" name="film">
+            </form>
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/Inception.jpg" alt="Inception" >
+                <input type="hidden" value="04" name="film">
+            </form> 
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/PulpFiction.jpg" alt="PulpFiction" >
+                <input type="hidden" value="05" name="film">
             </form>  
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/KingRichard.jpg" alt="KingRichard" >
+                <input type="hidden" value="06" name="film">
+            </form> 
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/OdioLEstate.jpg" alt="OdioLEstate" >
+                <input type="hidden" value="07" name="film">
+            </form> 
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/AmericanGangster.jpg" alt="AmericanGangster" >
+                <input type="hidden" value="08" name="film">
+            </form>  
+            <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/Interstellar.jpg" alt="Interstellar" class="ultimo">
+                <input type="hidden" value="09" name="film">
+            </form> 
+            
                 
                 
             </div>
             <div class="serie">
                 <h2 id="serie">Serie Tv</h2>
             </div>
-            <div class="elenco">
-                <input type="image" src="Immagini/the office.png" class="primo">
-                <input type="image" src="Immagini/the office.png">
-                <input type="image" src="Immagini/the office.png">
-                <input type="image" src="Immagini/the office.png" class="ultimo">  
+                <div class="elenco">
+                <form action="PaginaContenuto.php" method="POST">
+                <input type="image" src="Immagini/TheOffice.jpg" alt="TheOffice"  class="primo">
+                <input type="hidden" value="01" name="serie">
+            </form> 
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/AttackOnTitan.jpg" alt="AttackOnTitan" >
+                        <input type="hidden" value="02" name="serie">
+                    </form>
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/GameOfThrones.jpg" alt="GameOfThrones" >
+                        <input type="hidden" value="03" name="serie">
+                    </form>
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/SonsOfAnarchy.jpg" alt="SonsOfAnarchy"  >
+                        <input type="hidden" value="04" name="serie">
+                    </form> 
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/RickAndMorty.jpg" alt="RickAndMorty" >
+                        <input type="hidden" value="05" name="serie">
+                    </form>  
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/AllOrNothing.jpg" alt="AllOrNothing" >
+                        <input type="hidden" value="06" name="serie">
+                    </form> 
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/TheBigBangTheory.jpg" alt="TheBigBangTheory" >
+                        <input type="hidden" value="07" name="serie">
+                    </form> 
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/HowIMetYourMother.jpg" alt="HowIMetYourMother" >
+                        <input type="hidden" value="08" name="serie">
+                    </form>  
+                    <form action="PaginaContenuto.php" method="POST">
+                        <input type="image" src="Immagini/BreakingBad.jpg" alt="BreakingBad"  class="ultimo">
+                        <input type="hidden" value="09" name="serie">
+                    </form> 
+                </div>
             </div>
-        </div>
         <script>
             function Login() {
                 document.getElementById("utente").classList.toggle("show");
             }
+
+    
             window.onclick = function(event) {
               if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("content");

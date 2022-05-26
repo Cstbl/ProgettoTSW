@@ -1,0 +1,9 @@
+#superiore{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#commenti{
+    margin-top: 20px;
+}
