@@ -3,10 +3,10 @@ session_start();
 $login = false;
 if(!empty($_POST['username']))
     $username_utente = $_POST['username'];
+    
 if(!empty($_SESSION['username'])){
     if(!empty($_SESSION['tipologia_abbonamento'])){
         $username_utente = $_SESSION['username'];
-        $tipologia_abbonamento = $_SESSION['tipologia_abbonamento'];
         $tipologia_abbonamento = $_SESSION['tipologia_abbonamento'];
         $login=true;
     }

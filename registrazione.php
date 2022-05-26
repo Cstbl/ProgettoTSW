@@ -156,7 +156,7 @@ if($flag_visualizzazione_sticky){
                 registrazione.repassword.style.border = "1px solid #ccc";
                 registrazione.password.style.border = "1px solid #ccc";
             }
-        if(registrazione.nascita.value=="" | !registrazione.nascita.value.match(/\d{4]\-\d{2}\-\d{2}/g)){
+        if(registrazione.nascita.value=="" | !registrazione.nascita.value.match(/\d{4}\-\d{2}\-\d{2}/g)){
             registrazione.nascita.style.border = "1px solid red";
             vuoto=false;
         }else{
