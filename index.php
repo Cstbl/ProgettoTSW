@@ -104,7 +104,7 @@ if($login & (!empty($username_utente) & !empty($tipologia_abbonamento))){
                                     </p>
                                     <p>
                                     <input id="login" type=submit name="login">
-                                     Oppure<a href="Registrazione.php">Registrati</a>
+                                     Oppure<a href="Registrazione.php" id="registrati">Registrati</a>
                                     </p>
                                 </form>
                             </div>
