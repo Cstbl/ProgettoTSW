@@ -145,15 +145,16 @@
                 </ul>
             </div>
         </div>
+        <h3><a href="index.php">Torna alla Homepage</a></h3>
         <?php }
 else{
-    echo "user : $username_utente livello:".$_SESSION['tipologia_abbonamento'];
+
     foreach($_SESSION as &$el){
         echo $el;
     }
     ?>
     <h1>Non sei ancora loggato!!</h1>
-    <h2>torna all'<a href="index.php"> homepage </a> e accedi al tuo profilo.</h2>
+    <h2>torna all'<a href="index.php">homepage</a> e accedi al tuo profilo.</h2>
 
     <?php  
 }?>
@@ -213,7 +214,6 @@ else{
                 document.getElementById("pagamento").style.display="block";
             }
     </script>
-    <h3><a href="index.php">Torna alla Homepage</a></h3>
     </body>
 </html>
 <?php

@@ -16,7 +16,7 @@ create table utente(
 	nascita date not null,
 	tipologia varchar(1) not null,
 	data_fine date not null,
-    constraint controlla_scadenza check (data_fine < current_date)
+    constraint controlla_scadenza check (data_fine > current_date)
 );
 	
 create table film(
@@ -64,3 +64,14 @@ create table commentoFilm(
 	constraint pk_commento_film Primary Key (utente,film));
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO www;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO www;
+
+CREATE EVENT IF NOT EXISTS Aggiornamento
+ON SCHEDULE
+    EVERY 1 DAY
+COMMENT 'Aggiornamento_expireData'
+DO
+    BEGIN
+    
+    UPDATE SET tipologia='0' FROM Utente WHERE DateCol < current_date();
+    
+    END
