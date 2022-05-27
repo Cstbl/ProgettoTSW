@@ -9,10 +9,16 @@
   <meta http-equiv="content-type" content="5">
   <link rel="icon" href="Logo/logo4.png" type="image/icon">  
   <link rel="stylesheet" href="registrazione.css" type="text/css">
+  <link rel="stylesheet" href="header.css" type="text/css">
+  <link rel="stylesheet" href="footer.css" type="text/css">
 </head>
 <body>
   <?php
-    //require_once('header.html');
+    require_once('header.html');?>
+      <div class="menu">
+    <h2>Registrati</h2>
+    <a href="index.php#username">Accedi</a>
+  </div><?php
     session_start();
 
     if(!empty($_SESSION))
@@ -65,9 +71,7 @@
     $flag_visualizzazione_sticky = true;
     if($flag_visualizzazione_sticky){
   ?>
-
-  <div class="container">
-    <h2>Registrati</h2>
+  <div class="container">  
     </p>
     <form method="post" name="registrazione" action=<?php echo $_SERVER['PHP_SELF']?> >
       <p>
@@ -139,9 +143,9 @@
         </p>
         <input type="text" id="cvv" name="CVV" placeholder="Inserisci CVV.."  maxlength="3">            
       </div>
-      <input type="submit" name="registra" value="Registrati"/>
-      </form>
     </div>
+    <input type="submit" name="registra" value="Registrati"/>
+      </form>
       <p>
       </p>
     <hr>
@@ -338,6 +342,6 @@
   ?>
   </body>
   <?php
-  //  require_once('footer.html');
+    require_once('footer.html');
   ?>
 </html>
