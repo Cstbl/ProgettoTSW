@@ -81,7 +81,7 @@ if(!empty($_SESSION['username'])){
                 <h1 id="titolo">Netflix</h1>
                 <h3 id="sottotitolo">Tutto quello che cerchi <br> quando e dove vuoi</h3>
             </div>
-            <div class="menu">
+            <div id="menu">
                 <a href="#film" class="menu_film">Film</a>            
                 <a href="#serie" class="menu_serie">Serie Tv</a>           
                 <input type="image" src="Immagini/lente1.jpg" name="lente" class="lente">
@@ -90,25 +90,27 @@ if(!empty($_SESSION['username'])){
                     <div class="utente">
                         <?php 
                            if(!$login){?>
-                                 <button onclick="Login()" class="dropbtn"><img src="Immagini/account.png" id="omino">Login</button>
-                                 <div id=tendina class="content">
-                                <form name="login" method="POST" id="login_form" action= <?=$_SERVER['PHP_SELF']?>>
-                                    <p>
-                                        <label for="username">
-                                            Username: <input type="text" name="username" id="username" <?php (!empty($username_utente) & $password_errata)?print"style=\"border: 1px solid red\"":""?>>
-                                        </label>
-                                    </p>
-                                    <p>
-                                    <label for="password">
-                                        Password: <input type="password" name="password" id="password" <?php (!empty($password_utente) & $password_errata)?print"style=\"border: 1px solid red\"":""?>>
-                                    </label>
-                                    </p>
-                                    <p>
-                                    <input id="login" type=submit name="login">
-                                     Oppure<a href="Registrazione.php">Registrati</a>
-                                    </p>
-                                </form>
-                            </div>
+                                <div id="login">
+                                    <button onclick="Login()" class="dropbtn"><img src="Immagini/account.png" id="omino">Login</button>
+                                    <div id=tendina class="content" style="display:none;">
+                                        <form name="login" method="POST" id="login_form" action= <?=$_SERVER['PHP_SELF']?>>
+                                            <p>
+                                                <label for="username">
+                                                    Username: <input type="text" name="username" id="username" <?php (!empty($username_utente) & $password_errata)?print"style=\"border: 1px solid red\"":""?>>
+                                                </label>
+                                            </p>
+                                            <p>
+                                            <label for="password">
+                                                Password: <input type="password" name="password" id="password" <?php (!empty($password_utente) & $password_errata)?print"style=\"border: 1px solid red\"":""?>>
+                                            </label>
+                                            </p>
+                                            <p>
+                                            <input id="login" type=submit name="login">
+                                            Oppure<a href="Registrazione.php">Registrati</a>
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
                         <?php
                            }else{?>
                             <a  href="Utente.php"><button class="dropbtn"><img src="Immagini/account.png" id="omino"><p class="username"><?=$username_utente?></p><p class="abbonamento"><?php ($tipologia_abbonamento==1)?(print("1 mese")):(($tipologia_abbonamento==2)? print("6 mesi"):(($tipologia_abbonamento == 3)? print("1 anno"):print("Nessun abbonamento attivato"))); ?></p></button></a>
@@ -216,25 +218,13 @@ if(!empty($_SESSION['username'])){
             </div>
         <script>
             function Login() {
-                document.getElementById("utente").classList.toggle("show");
-            }
-
-    
-            window.onclick = function(event) {
-              if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                  }
+                if(document.getElementById("tendina").style.display!="none"){
+                    document.getElementById("tendina").style.display="none";
+                }else{
+                    document.getElementById("tendina").style.display="block";
                 }
-              }
             }
-            if ( window.history.replaceState ) {
-                window.history.replaceState( null, null, window.location.href );
-            }
+    
         </script>
         <?php  
 

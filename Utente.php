@@ -142,9 +142,11 @@
             <div id="preferiti" style="width: fit-content; border: 1px solid black">
                 <h3>Preferiti:</h3>
                 <ul>
-                    <li>The Wolf of Wall Maria</li>
-                    <li>Game of Drones</li>
-                    <li>Sons of Diplomacy</li>
+                    <?php
+                        require "connection.php";
+                        $preferiti = richiedi_preferiti($db,$username_utente);
+                    //<li>The Wolf of Wall Maria</li>
+                    ?>
                 </ul>
             </div>
         </div>
@@ -220,4 +222,30 @@ else{
     </body>
 </html>
 <?php
+    function richiedi_preferiti($db, $user){
+        $preferiti=[];
+        $query_preferiti_film= "SELECT film FROM preferenzaFilm WHERE utente=$1";
+        pg_prepare($db,"Preferenza_film",$query_preferiti_film);
+        $res = pg_execute($db,"Preferenza_film", array($user));
+        if(!$res){
+            return;
+        }
+        $film_prefe=pg_fetch_assoc($res);
+        if($film_prefe)
+            foreach($film_prefe as &$ele){
+                echo"<li>$ele</li>";
+            }
+        $query_preferiti_serie= "SELECT serie FROM preferenzaSerie WHERE utente=$1";
+        pg_prepare($db,"Preferenza_serie",$query_preferiti_serie);
+        $res = pg_execute($db,"Preferenza_serie", array($user));
+        if(!$res){
+            return;
+        }
+        $serie_prefe=pg_fetch_assoc($res);
+        if($serie_prefe)
+            foreach($serie_prefe as &$ele){
+                echo"<li>$ele</li>";
+            }
+        return $preferiti;
+    }
 ?>
