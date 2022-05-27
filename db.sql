@@ -1,3 +1,4 @@
+drop table if exists episodiSerie;
 drop table if exists preferenzaFilm;
 drop table if exists commentoFilm;
 drop table if exists preferenzaSerie;
@@ -43,8 +44,7 @@ create table serie(
 	screen varchar(255) not null,
 	regista varchar(30) not null,
 	attori varchar(255) not null,
-	durata_episodi varchar(30) not null,
-	numero_episodi integer not null);
+	durata_episodi varchar(30) not null);
 	
 create table preferenzaSerie(
 	utente varchar(30) references utente(username) on delete cascade on update cascade,
@@ -56,16 +56,26 @@ create table preferenzaFilm(
 	film varchar(30) references film(codice) on delete cascade on update cascade,
 	constraint pk_pref_film Primary Key (utente,film));
 
-create table commentoSerie(
+create table commentoEpisodio(
 	utente varchar(30) references utente(username) on delete cascade on update cascade,
-	serie varchar(30) references serie(codice) on delete cascade on update cascade,
+	serie varchar(30) references episodio(serie,numero_episodio) on delete cascade on update cascade,
 	testo varchar(255) not null,
-	constraint pk_commento_serie Primary Key (utente,serie,testo);
+	constraint pk_commento_serie Primary Key (utente,serie,testo));
 
 create table commentoFilm(
 	utente varchar(30) references utente(username) on delete cascade on update cascade,
 	film varchar(30) references film(codice) on delete cascade on update cascade,
-	testo varchar(255) not null,
-	constraint pk_commento_film Primary Key (utente,film,testo);
+	testo varchar(255),
+	constraint pk_commento_film Primary Key (utente,film,testo));
+	
+create table episodiSerie(
+	serie varchar(30) references serie(codice) on delete cascade on update cascade,
+	numero_episodio varchar(30),
+	href varchar(255) not null,
+	trama varchar(255) not null,
+	durata_episodio varchar(30) not null,
+	screen varchar(255) not null,
+	constraint pk_episodi_serie Primary Key (serie,numero_episodio));
+
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO www;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO www;
