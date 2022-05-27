@@ -1,0 +1,164 @@
+body{
+  background-image: url('Sfondo/registra2.png');
+  background-repeat: round;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+}
+.container{
+  margin-left: 5px;
+}
+input[type="radio"][class^="abbonamenti"] {
+    display: none;
+}
+.title{
+  text-align: start;
+  background-image: url('Sfondo/sfondo3.png');
+  background-repeat: round;
+  width: 100%;
+  height: 340px;
+  border-bottom: solid 5px rgb(5, 5, 5);
+}
+form p{
+  margin-bottom: 2px;
+  color: rgb(174, 169, 169);
+  font-size: 13.5px;
+}
+.label_abbonamenti{
+  width: 200px;
+  height: 150px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+.label_abbonamenti:before {
+  background-color: white;
+  color: white;
+  display: inline-block;
+  position: absolute;
+  transition-duration: 0.4s;
+  transform: scale(2);
+}
+.label_abbonamenti img {
+  height: 150px;
+  width: 200px;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+  margin-bottom: 15px;
+  border: solid 1px white;
+}
+:checked + .label_abbonamenti {
+  border-color: #ddd;
+}
+:checked + .label_abbonamenti img {
+  transform: scale(0.85);
+  box-shadow: 0 0 50px white;
+}
+fieldset{
+  margin-top: 20px;
+  width: 700px;
+}
+.salta{
+  margin-left: 10px;
+}
+.salta:hover{
+  cursor: pointer;
+  background-color: white;
+}
+.creditcard{
+  display: inline;
+  float: left;
+}
+.immagine{
+  width: 40px;
+  height: 30px;
+  margin: 20px;
+}
+.paypal{
+  display: inline;
+}
+#pagamento{
+  color:rgb(174, 169, 169);
+  font-size: 13.5px;
+}
+#metodoPagamento{
+  width: fit-content;
+}
+#campiAnagraficaCarta{
+  gap: 10px;
+  margin-top: 20px;
+}
+#campiDatiCarta{
+  gap: 10px;
+  margin-top: 10px;
+}
+.dati{
+  width: 200px;
+}
+.carta{
+  margin-right: 30px;
+}
+#numero{
+  width: 200px;
+}
+#cvv{
+  width: 100px;
+}
+input[type="submit"]{
+  font-size: 14.5px;
+  cursor: pointer;
+  margin-left: 1px;
+  margin-top: 10px;
+}
+.accedi{
+  font-size: 13.5px;
+}
+.accedi a, .accedi a:link, .accedi a:visited{
+  color: cyan;
+}
+.accedi a:hover{
+  color: white;
+}
+.accedi a:active{
+  color:rgb(94, 5, 142);
+}
+footer{
+  width: 100%;
+  height: 230px;
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  background-color: rgb(5, 5, 5);
+}
+footer li{
+  text-align: start;
+  list-style: none;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+.listasocial{
+  padding-left: 10px;
+}
+.listasocial img{
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.listachisiamo a, .listasocial a{
+  text-decoration: none;
+}
+footer a:hover{
+  color: rgb(94, 5, 142);
+}
+footer a, footer a:active, footer a:visited{
+  color: white;
+}

@@ -111,6 +111,7 @@
                         </fieldset>
                     <?php
                 }?>
+                    <form action="<?=$_SERVER['PHP_SELF']?>">
                         <div id="pagamento" style="display: none">
                             <div id="metodoPagamento">
                             <div style="display:inline;">
@@ -133,6 +134,8 @@
                             <label for="CVV"> CVV:</label>
                                 <input type="text" name="CVV" placeholder="Inserisci CVV.."  maxlength="3">            </div>
                         </div>
+                        <INput:button></INput:button>
+                    </form>
 
     
             </div>
