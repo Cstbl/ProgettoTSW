@@ -176,10 +176,10 @@ if(!empty($_SESSION['username'])){
                 <h2 id="serie">Serie Tv</h2>
             </div>
                 <div class="elenco">
-                <form action="PaginaContenuto.php" method="POST">
-                <input type="image" src="Immagini/TheOffice.jpg" alt="TheOffice"  class="primo">
-                <input type="hidden" value="01" name="serie">
-            </form> 
+                    <form action="PaginaSerie.php" method="POST">
+                        <input type="image" src="Immagini/TheOffice.jpg" alt="TheOffice"  class="primo">
+                        <input type="hidden" value="01" name="serie">
+                    </form>
                     <form action="PaginaContenuto.php" method="POST">
                         <input type="image" src="Immagini/AttackOnTitan.jpg" alt="AttackOnTitan" >
                         <input type="hidden" value="02" name="serie">

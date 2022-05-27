@@ -8,8 +8,10 @@
   }
   elseif(!empty($_POST['serie']) and ($_POST['serie']>='01' and $_POST['serie']<='09')){
     $codice_serie=$_POST['serie'];
+    $episodio=$_POST['episodio'];
     $_SESSION['codice_serie'] = $codice_serie;
-    $row=get_serie($db,$codice_serie);
+    $_SESSION['episodio'] = $episodio;
+    $row=get_episodio($db,$codice_serie,$episodio);
 
   }
   elseif(!empty($_SESSION['codice_film'])){
@@ -133,10 +135,10 @@
     
   }
 
-  function get_serie($db,$codice_serie){
-    $sql="SELECT * from serie where codice=$1";
+  function get_episodio($db,$codice_serie,$episodio){
+    $sql="SELECT * from episodiserie where serie=$1 and numero_episodio=$2";
     $prep=pg_prepare($db,"find_serie",$sql);
-    $ret=pg_execute($db,"find_serie",array($codice_serie));
+    $ret=pg_execute($db,"find_serie",array($codice_serie,$episodio));
     if(!$ret){
       echo "Serie non esistente";
     }
